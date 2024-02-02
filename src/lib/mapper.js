@@ -290,13 +290,13 @@ export default class Mapper {
 
     let values = [];
     let anyValues = false;
-    
+
     // Get source
     for (const fromKey of sourcePath) {
 
       const value = this.om.getValue(sourceObject, fromKey);
 
-      if (this.exists_(value)) {
+      if (value !== undefined) {
         anyValues = true;
       }
 
@@ -306,7 +306,7 @@ export default class Mapper {
     let value;
 
     // default transformations
-    if ((anyValues || options.alwaysTransform) === true && options.pipelineTransformations.length > 0) {
+    if (anyValues && options.pipelineTransformations.length > 0) {
       options.pipelineTransformations.map(item => {
         values = item(sourceObject, values);
       });
@@ -316,7 +316,12 @@ export default class Mapper {
     for (let i = 0; i < values.length; i++) {
       values[i] = this.flattenValue_(flattenings[i], values[i]);
     }
-    
+
+    // Apply transform if appropriate
+    if (anyValues || options.alwaysTransform === true) {
+      value = transform(...values);
+    }
+
     if (!anyValues && failureTransform) {
       value = failureTransform(value);
     }
