@@ -1,5 +1,5 @@
 {
-  "name": "map-factory-xyse",
+  "name": "map-factory-fork",
   "version": "3.8.7",
   "description": "A simple object mapping utility that makes it easy to map data from one object to another. Create object mappers using fluent interface that supports deep references (dot notation), custom transformations, and object merging.",
   "main": "./dist/lib/index.js",
@@ -28,11 +28,11 @@
     "safe": "./safe-install map-factory"
   },
   "bugs": {
-    "url": "https://github.com/midknight41/map-factory/issues"
+    "url": "https://github.com/xyse/map-factory/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/midknight41/map-factory.git"
+    "url": "https://github.com/xyse/map-factory.git"
   },
   "keywords": [
     "object",
