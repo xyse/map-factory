@@ -296,7 +296,7 @@ export default class Mapper {
 
       const value = this.om.getValue(sourceObject, fromKey);
 
-      if (value !== undefined) {
+      if (this.exists_(value)) {
         anyValues = true;
       }
 

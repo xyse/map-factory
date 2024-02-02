@@ -54,7 +54,7 @@ function handleArrayOfUndefined_(value) {
 function scanArrayForValue_(arrayToScan, defaultValue) {
 
   for (const item of arrayToScan) {
-    if (item !== undefined && item !== null) {
+    if (item !== undefined) {
       return defaultValue;
     }
   }
