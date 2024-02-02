@@ -289,17 +289,24 @@ export default class Mapper {
     }
 
     let values = [];
+    let anyValues = false;
 
     // Get source
     for (const fromKey of sourcePath) {
+
       const value = this.om.getValue(sourceObject, fromKey);
+
+      if (value !== undefined) {
+        anyValues = true;
+      }
+
       values.push(value);
     }
 
     let value;
 
     // default transformations
-    if (options.pipelineTransformations.length > 0) {
+    if (anyValues && options.pipelineTransformations.length > 0) {
       options.pipelineTransformations.map(item => {
         values = item(sourceObject, values);
       });
@@ -311,8 +318,12 @@ export default class Mapper {
     }
 
     // Apply transform if appropriate
-    if (options.alwaysTransform === true) {
+    if (anyValues || options.alwaysTransform === true) {
       value = transform(...values);
+    }
+
+    if (!anyValues && failureTransform) {
+      value = failureTransform(value);
     }
 
     // Set value on destination object
